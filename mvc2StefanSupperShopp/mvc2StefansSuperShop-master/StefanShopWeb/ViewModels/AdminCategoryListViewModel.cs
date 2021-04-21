@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace StefanShopWeb.ViewModels
 {
@@ -11,6 +12,7 @@ namespace StefanShopWeb.ViewModels
         {
             public int Id { get; set; }
             public string Name { get; set; }
+            public IFormFile NyBild { get; set; }
         }
 
         public List<Category> Categories { get; set; }
