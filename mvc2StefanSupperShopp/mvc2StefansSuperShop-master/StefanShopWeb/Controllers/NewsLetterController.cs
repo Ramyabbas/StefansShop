@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StefanShopWeb.Data;
 using StefanShopWeb.Models;
 using StefanShopWeb.ViewModels;
@@ -18,17 +19,19 @@ namespace StefanShopWeb.Controllers
         }
 
 
-        public IActionResult Index(Guid id)
+        public IActionResult Index(string q)
         {
-            var model = new NewsLetterViewModel();
-            model.Email = dbContext.NewsLetterSubscribers
-                .Where(r => r.Id == id)
-                .Select(dbSubscriber => new NewsLetterViewModel()
-                {
-                    Id = dbSubscriber.Id
-                }).ToList();
+            var viewModel = new NewsLetterIndexViewModel();
 
-            return View(model);
+            viewModel.NewsLetter = dbContext.NewsLetters
+                .Where(r => q == null || r.Title.Contains(q))
+                .Select(dbNewsLetter => new NewsLetterViewModel()
+                {
+                    Id = dbNewsLetter.Id,
+                    Title = dbNewsLetter.Title,
+                    Content = dbNewsLetter.Content
+                }).ToList();
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Admin, Product Manager")]
@@ -60,6 +63,39 @@ namespace StefanShopWeb.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [Authorize(Roles = "Admin, Product Manager")]
+        public IActionResult Edit(string title)
+        {
+            var viewModel = new NewsLetterEditViewModel();
+
+            var dbNewsLetter = dbContext.NewsLetters.Include(r => r.Title).First(r => r.Title == title);
+
+
+            viewModel.Id = dbNewsLetter.Id;
+            viewModel.Title = dbNewsLetter.Title;
+            viewModel.Content = dbNewsLetter.Content;
+
+
+            return View(viewModel);
+        }
+
+        [Authorize(Roles = "Admin, Product Manager")]
+        [HttpPost]
+        public IActionResult Edit(Guid Id, NewsLetterEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbNewsLetter = dbContext.NewsLetters.Include(p => p.Id).First(r => r.Id == Id);
+
+                dbNewsLetter.Title = viewModel.Title;
+                dbNewsLetter.Content = viewModel.Content;
+                dbNewsLetter.Id = viewModel.Id;
+                dbContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(viewModel);
         }
     }
 

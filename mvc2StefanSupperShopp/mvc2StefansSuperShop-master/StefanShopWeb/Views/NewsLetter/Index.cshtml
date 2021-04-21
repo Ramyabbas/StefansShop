@@ -1,7 +1,45 @@
-﻿@model StefanShopWeb.ViewModels.NewsLetterViewModel
+﻿@using StefanShopWeb.ViewModels
+@using StefanShopWeb.Data
+@model StefanShopWeb.ViewModels.NewsLetterIndexViewModel
+
 @{
-    ViewData["Title"] = "";
+    ViewBag.Title = "title";
 }
 
+<div class="col-lg-9 ">
+    <a asp-controller="NewsLetter" asp-action="New" class="btn btn-secondary" role="button" aria-pressed="true">
+        Skapa nytt
+    </a>
 
-    
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Id</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var newsLetter in Model.NewsLetter)
+                        {
+                            <tr>
+                                <th scope="row">@newsLetter.Title</th>
+                                <td>@newsLetter.Content</td>
+                                <td><a asp-action="Edit" asp-route-id="@newsLetter.Id">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
