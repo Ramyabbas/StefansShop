@@ -1,0 +1,35 @@
+﻿@model StefanShopWeb.ViewModels.NewsLetterNewViewModel
+@{
+    ViewData["Title"] = "";
+}
+<h1>Nytt newsletter</h1>
+
+
+<form method="post" enctype="multipart/form-data">
+
+    Title:
+    <input asp-for="Title" /> <br /><span asp-validation-for="Title"></span><br />
+
+
+    Content:
+    <input asp-for="Content" /> <br /><span asp-validation-for="Content"></span><br />
+
+    Id:
+    <input asp-for="Id" /> <br /><span asp-validation-for="Id"></span><br />
+
+    <hr />
+
+    <button type="submit">Spara</button>
+</form>
+<div class="jumbotron" style="background-color:#2B2D42;">
+    <center>
+        <h1 style="color:#FCECC9;">JavaScript GUID/UUID Generator</h1>
+        <p style="color:#FCECC9;"> Your GUID is: </p>
+        <p style="font-size:30px;" id="uuid_p">UUID</p>
+   
+        <button id="button-refresh" class="btn btn-success">Get Another</button><button class="btn btn-info" id="copyclip">Copy to Clipboard</button>
+    </center>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
+
