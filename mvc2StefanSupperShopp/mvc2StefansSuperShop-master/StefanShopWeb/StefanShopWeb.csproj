@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-StefanShopWeb-E3CED2D5-A95E-4B2D-A5F0-69A4F8C0D341</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20210422112344_Initial.cs" />
+    <Compile Remove="Data\Migrations\20210422112344_Initial.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
