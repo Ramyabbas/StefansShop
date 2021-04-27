@@ -68,11 +68,11 @@ namespace StefanShopWeb.Controllers
         }
 
         [Authorize(Roles = "Admin, Product Manager")]
-        public IActionResult Edit(string title)
+        public IActionResult Edit(Guid id)
         {
             var viewModel = new NewsLetterEditViewModel();
 
-            var dbNewsLetter = dbContext.NewsLetters.Include(r => r.Title).First(r => r.Title == title);
+            var dbNewsLetter = dbContext.NewsLetters.First(r => r.Id == id);
 
 
             viewModel.Id = dbNewsLetter.Id;
@@ -86,11 +86,11 @@ namespace StefanShopWeb.Controllers
 
         [Authorize(Roles = "Admin, Product Manager")]
         [HttpPost]
-        public IActionResult Edit(Guid Id, NewsLetterEditViewModel viewModel)
+        public IActionResult Edit(NewsLetterEditViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var dbNewsLetter = dbContext.NewsLetters.Include(p => p.Id).First(r => r.Id == Id);
+                var dbNewsLetter = dbContext.NewsLetters.First(r => r.Id == viewModel.Id);
 
                 dbNewsLetter.Title = viewModel.Title;
                 dbNewsLetter.Content = viewModel.Content;
