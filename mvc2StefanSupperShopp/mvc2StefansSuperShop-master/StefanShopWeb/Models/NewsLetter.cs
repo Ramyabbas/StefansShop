@@ -15,5 +15,6 @@ namespace StefanShopWeb.Models
 
         public string Title { get; set; }
         public string Content { get; set; }
+        public bool IsSent { get; set; }
     }
 }

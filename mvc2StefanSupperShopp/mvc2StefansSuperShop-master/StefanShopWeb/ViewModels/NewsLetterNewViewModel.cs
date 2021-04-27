@@ -11,5 +11,7 @@ namespace StefanShopWeb.ViewModels
         public string Content { get; set; }
         public Guid Id { get; set; }
 
+        public bool IsSent { get; set; }
+
     }
 }

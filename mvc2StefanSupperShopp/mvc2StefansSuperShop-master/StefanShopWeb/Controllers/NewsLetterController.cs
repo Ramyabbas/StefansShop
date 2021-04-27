@@ -29,7 +29,8 @@ namespace StefanShopWeb.Controllers
                 {
                     Id = dbNewsLetter.Id,
                     Title = dbNewsLetter.Title,
-                    Content = dbNewsLetter.Content
+                    Content = dbNewsLetter.Content,
+                    IsSent = dbNewsLetter.IsSent
                 }).ToList();
             return View(viewModel);
         }
@@ -58,6 +59,7 @@ namespace StefanShopWeb.Controllers
                 dbNewsLetter.Title = viewModel.Title;
                 dbNewsLetter.Content = viewModel.Content;
                 dbNewsLetter.Id = viewModel.Id;
+                dbNewsLetter.IsSent = viewModel.IsSent;
 
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -76,6 +78,7 @@ namespace StefanShopWeb.Controllers
             viewModel.Id = dbNewsLetter.Id;
             viewModel.Title = dbNewsLetter.Title;
             viewModel.Content = dbNewsLetter.Content;
+            viewModel.IsSent = dbNewsLetter.IsSent;
 
 
             return View(viewModel);
@@ -92,12 +95,13 @@ namespace StefanShopWeb.Controllers
                 dbNewsLetter.Title = viewModel.Title;
                 dbNewsLetter.Content = viewModel.Content;
                 dbNewsLetter.Id = viewModel.Id;
+                dbNewsLetter.IsSent = viewModel.IsSent;
                 dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(viewModel);
         }
-        //hejhej
+        
     }
 
 }

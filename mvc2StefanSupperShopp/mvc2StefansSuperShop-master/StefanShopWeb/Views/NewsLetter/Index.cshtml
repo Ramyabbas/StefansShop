@@ -19,22 +19,26 @@
 
                 <table class="table">
                     <thead>
+                    
                     <tr>
                         <th scope="col">Title</th>
                         <th scope="col">Content</th>
                         <th scope="col">Id</th>
+                        <th scope="col">Skickat</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach (var newsLetter in Model.NewsLetter)
-                        {
-                            <tr>
-                                <th scope="row">@newsLetter.Title</th>
-                                <td>@newsLetter.Content</td>
-                                <td><a asp-action="Edit" asp-route-id="@newsLetter.Id">Edit</a></td>
-                            </tr>
-                        }
+                    @foreach (var newsLetter in Model.NewsLetter)
+                    {
+                        <tr>
+                            <th scope="row">@newsLetter.Title</th>
+                            <td>@newsLetter.Content</td>
+                            <td>@newsLetter.IsSent</td>
+                            <td><a asp-action="Edit" asp-route-id="@newsLetter.Id">Edit</a></td>
+                        </tr>
+                    }
                     </tbody>
+                    
                 </table>
 
             </div>
