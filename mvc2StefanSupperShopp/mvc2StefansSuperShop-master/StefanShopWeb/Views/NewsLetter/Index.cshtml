@@ -24,7 +24,6 @@
                         <th scope="col">Titel</th>
                         <th scope="col">Innehåll</th>
                         <th scope="col">Skickat</th>
-                        <th scope="col">Id</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,7 +33,6 @@
                             <th scope="row">@newsLetter.Title</th>
                             <td>@newsLetter.Content</td>
                             <td>@newsLetter.IsSent</td>
-                            <td>@newsLetter.Id</td>
                             <td><a asp-action="Edit" asp-route-id="@newsLetter.Id">Edit</a></td>
                         </tr>
                     }

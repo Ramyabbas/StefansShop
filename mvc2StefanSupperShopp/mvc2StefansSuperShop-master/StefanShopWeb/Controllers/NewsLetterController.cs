@@ -58,7 +58,6 @@ namespace StefanShopWeb.Controllers
 
                 dbNewsLetter.Title = viewModel.Title;
                 dbNewsLetter.Content = viewModel.Content;
-                dbNewsLetter.Id = viewModel.Id;
                 dbNewsLetter.IsSent = viewModel.IsSent;
 
                 dbContext.SaveChanges();
