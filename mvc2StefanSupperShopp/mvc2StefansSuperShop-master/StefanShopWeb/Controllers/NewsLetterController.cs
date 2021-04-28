@@ -101,7 +101,20 @@ namespace StefanShopWeb.Controllers
             }
             return View(viewModel);
         }
-        
+
+        public IActionResult Subscribe(NewsLetterSubscriber viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbSubscriber = new NewsLetterSubscriber();
+                dbContext.NewsLetterSubscribers.Add(dbSubscriber);
+                dbSubscriber.Email = viewModel.Email;
+                dbContext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
     }
 
 }
