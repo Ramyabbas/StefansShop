@@ -1,39 +1,29 @@
-﻿@using StefanShopWeb.ViewModels
-@using StefanShopWeb.Data
-@model StefanShopWeb.ViewModels.NewsLetterEditViewModel
+﻿@using StefanShopWeb.Data
+@model  StefanShopWeb.ViewModels.NewsLetterEditViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewData["Title"] = "Home Page";
 }
 
-<div class="col-lg-9 ">
-    <a asp-controller="NewsLetter" asp-action="New" class="btn btn-secondary" role="button" aria-pressed="true">
-        Create new
-    </a>
-
-    <div class="row">
-
-        @foreach (var newsLetter in Model.NewsLetter)
-        {
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <a asp-controller="NewsLetter" asp-action="Edit" asp-route-Id="@newsLetter.Id" class="btn btn-secondary active" role="button" aria-pressed="true">Edit</a>
-
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="#">@newsLetter.Title</a>
-                        </h4>
-                        <p>@newsLetter.Content kr</p>
-                        <h5>@newsLetter.Id</h5>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                    </div>
-                </div>
-            </div>
-        }
+<h1>Edit Newsletter</h1>
 
 
-    </div>
-</div>
+
+<form method="post" enctype="multipart/form-data">
+
+    Title:
+    <br />
+    <input asp-for="Title" /> <br /><span asp-validation-for="Title"></span><br />
+
+
+
+    Content:
+    <br />
+    <textarea rows="4" cols="25" asp-for="Content"></textarea>
+
+
+
+    <hr />
+
+    <button type="submit">Spara</button>
+</form>

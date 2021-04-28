@@ -8,13 +8,17 @@
 <form method="post" enctype="multipart/form-data">
 
     Title:
+    <br />
     <input asp-for="Title" /> <br /><span asp-validation-for="Title"></span><br />
 
 
     Content:
-    <input asp-for="Content" /> <br /><span asp-validation-for="Content"></span><br />
+    <br />
+    <textarea rows="4" cols="25" asp-for="Content"></textarea>
+    <br />
 
     Id:
+    <br />
     <input asp-for="Id" /> <br /><span asp-validation-for="Id"></span><br />
 
     <hr />
