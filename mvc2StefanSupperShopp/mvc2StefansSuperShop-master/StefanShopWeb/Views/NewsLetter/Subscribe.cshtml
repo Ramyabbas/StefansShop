@@ -1,0 +1,19 @@
+﻿@using StefanShopWeb.ViewModels
+@model StefanShopWeb.ViewModels.NewsLetterSubscribe
+
+<div class="text-center">
+    @{
+        if (Model.StatusCode == StatusCode.SuccessSubscribed)
+        {
+        <h1 class="display-4">Prenumerera!</h1>
+            <p>Tack för att du prenumererar på vårt nyhetsbrev</p>
+        }
+
+        if (Model.StatusCode == StatusCode.AlreadySubscribed)
+        {
+<h1 class="display-4">Du är redan prenumerant!</h1>
+            <p>Det här e-posten var redan registrerat i vårt nyhetsbrev, välj ett annat</p>
+        }
+
+    }
+</div>

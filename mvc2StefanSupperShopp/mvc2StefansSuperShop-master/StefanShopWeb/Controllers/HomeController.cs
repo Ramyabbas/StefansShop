@@ -15,24 +15,42 @@ namespace StefanShopWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _logger = logger;
-            this.context = context;
+            _context = context;
+            _userManager = userManager;
 
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var model = new StartPageModel();
-            model.TrendingCategories = context.Categories.Take(3).Select( c=> 
+            model.TrendingCategories = _context.Categories.Take(3).Select( c=> 
                         new StartPageModel.TrendingCategory { Id = c.CategoryId, Name = c.CategoryName }
                     ).ToList();
 
+            ViewData["Shownewsletter"] = true;
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return View(model);
+
+            var email = await _userManager.GetEmailAsync(user);
+            if (string.IsNullOrEmpty(email))
+                return View(model);
+
+            var subscribed = _context.NewsLetterSubscribers.FirstOrDefault(x => x.Email == email);
+            if (subscribed != null)
+                ViewData["Shownewsletter"] = false;
+
             return View(model);
         }
+
+
+
 
         public IActionResult Privacy()
         {

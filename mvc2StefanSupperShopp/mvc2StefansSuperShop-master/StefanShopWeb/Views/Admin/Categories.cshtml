@@ -47,12 +47,12 @@
                 <tbody>
                     @foreach (var cat in Model.Categories)
                     {
-                        <tr>
-                            <th scope="row">@cat.Id</th>
-                            <td>@cat.Name</td>
-                            <td><img src="img/Categories/@(cat.Id).png"/></td>
-                            
-                        </tr>
+                    <tr>
+                        <th scope="row">@cat.Id</th>
+                        <td>@cat.Name</td>
+                        <td><img src="~/img/Categories/@(cat.Id).png" alt="Categories" style="width:150px;height:80px;"></td>
+
+                    </tr>
                     }
                 </tbody>
             </table>

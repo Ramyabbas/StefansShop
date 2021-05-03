@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -101,18 +102,24 @@ namespace StefanShopWeb.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Subscribe(NewsLetterSubscriber viewModel)
+        [HttpPost]
+        public async Task<IActionResult> Subscribe(string email)
         {
-            if (ModelState.IsValid)
+            var subscriber = dbContext.NewsLetterSubscribers.FirstOrDefault(x => x.Email == email);
+            var newsletterSubscribed = new NewsLetterSubscribe();
+            if (subscriber != null)
             {
-                var dbSubscriber = new NewsLetterSubscriber();
-                dbContext.NewsLetterSubscribers.Add(dbSubscriber);
-                dbSubscriber.Email = viewModel.Email;
-                dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                newsletterSubscribed.StatusCode = ViewModels.StatusCode.AlreadySubscribed;
+                return View(newsletterSubscribed);
             }
 
-            return View();
+            newsletterSubscribed.StatusCode = ViewModels.StatusCode.SuccessSubscribed;
+            var subcriber = new NewsLetterSubscriber();
+            dbContext.NewsLetterSubscribers.Add(subcriber);
+            subcriber.Email = email;
+            
+            await dbContext.SaveChangesAsync();
+            return View(newsletterSubscribed);
         }
     }
 

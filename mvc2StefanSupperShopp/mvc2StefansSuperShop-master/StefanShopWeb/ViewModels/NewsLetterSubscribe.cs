@@ -8,11 +8,15 @@ namespace StefanShopWeb.ViewModels
 {
     public class NewsLetterSubscribe
     {
-        public Guid Id { get; set; }
-
-        [Required]
+        public StatusCode StatusCode { get; set; }
         public string Email { get; set; }
-
     }
+    public enum StatusCode
+    {
+        Unknown,
+        AlreadySubscribed,
+        SuccessSubscribed
+    }
+
 }
 

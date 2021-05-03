@@ -1,7 +1,4 @@
-﻿@{
-    var viewModel = (NewsLetterSubscriber)ViewBag.NewsLetterSubcriber;
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -163,40 +160,15 @@
     </div>
     <!-- /SECTION -->
     <!-- NEWSLETTER -->
-    <div id="newsletter" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="newsletter">
-                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form asp-controller="NewsLetter" asp-action="Subscribe" method="post">
 
-                            <input asp-for="@viewModel.Email" class="input" type="email" placeholder="Enter Your Email"><span asp-validation-for="@viewModel.Email"></span>
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                        </form>
-                        <ul class="newsletter-follow">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
+    @if (ViewData["Shownewsletter"] == null)
+    {
+        <partial name="_Newsletter" />
+    }
+    else if ((bool)ViewData["Shownewsletter"] == true)
+    {
+        <partial name="_Newsletter" />
+    }
     <!-- /NEWSLETTER -->
     <!-- FOOTER -->
     <footer id="footer">
