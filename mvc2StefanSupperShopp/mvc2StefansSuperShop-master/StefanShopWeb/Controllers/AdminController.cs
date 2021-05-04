@@ -23,6 +23,7 @@ namespace StefanShopWeb.Controllers
             var list = new List<MenuItem>();
             list.Add( new MenuItem { Text = "Products", Action = "Products", Controller="Admin", IsActive = activeAction == "Products"  } );
             list.Add(new MenuItem { Text = "Categories", Action = "Categories", Controller = "Admin", IsActive = activeAction == "Categories" });
+            list.Add(new MenuItem { Text = "Newsletter", Action = "Index", Controller = "NewsLetter", IsActive = activeAction == "NewsLetter" });
             return list;
         }
         public IActionResult Index()

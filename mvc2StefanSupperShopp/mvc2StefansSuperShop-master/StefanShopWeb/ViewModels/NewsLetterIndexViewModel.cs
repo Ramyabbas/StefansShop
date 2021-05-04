@@ -10,7 +10,7 @@ namespace StefanShopWeb.ViewModels
         public List<NewsLetterViewModel> NewsLetter { get; set; }
 
         public List<SentNewsLetter> SentNewsLetters { get; set; }
-        
+
 
     }
 }
