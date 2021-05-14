@@ -28,11 +28,13 @@
 <!-- /SECTION -->
 
 <div class="section">
+    <a asp-controller="Product" asp-action="New" class="btn btn-danger" role="button" aria-pressed="true">
+        Skapa ny
+    </a>
     <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
-
             <table class="table">
                 <thead>
                     <tr>
@@ -46,15 +48,15 @@
                 <tbody>
                     @foreach (var product in Model.Products)
                     {
-                    <tr>
-                        <th scope="row">@product.Id</th>
-                        <td>@product.Name</td>
-                        <td>@product.CategoryName</td>
-                        <td>@product.Price</td>
-                        <td><a asp-action="EditProduct" asp-route-id="@product.Id">Edit</a></td>
-                    </tr>
+                        <tr>
+                            <th scope="row">@product.Id</th>
+                            <td>@product.Name</td>
+                            <td>@product.CategoryName</td>
+                            <td>@product.Price</td>
+                            <td><a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id">Edit</a></td>
+                        </tr>
                     }
-                    </tbody>
+                </tbody>
             </table>
 
         </div>

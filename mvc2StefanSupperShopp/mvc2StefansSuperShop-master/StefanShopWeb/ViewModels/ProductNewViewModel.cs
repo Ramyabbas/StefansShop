@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace StefanShopWeb.ViewModels
 {
-    public class AdminEditProductViewModel : AdminViewModel
+    public class ProductNewViewModel
     {
         [Key]
         [Column("ProductID")]
         public int ProductId { get; set; }
-
         [Required(ErrorMessage = "Var vänlig och skriv in namnet")]
         [StringLength(40)]
         public string ProductName { get; set; }
         public int SupplierId { get; set; }
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
         [StringLength(20)]
         public string QuantityPerUnit { get; set; }
         [Column(TypeName = "money")]
@@ -29,5 +28,6 @@ namespace StefanShopWeb.ViewModels
         public bool Discontinued { get; set; }
         public List<SelectListItem> cateories { get; set; }
         public List<SelectListItem> Suppliers { get; set; }
+
     }
 }

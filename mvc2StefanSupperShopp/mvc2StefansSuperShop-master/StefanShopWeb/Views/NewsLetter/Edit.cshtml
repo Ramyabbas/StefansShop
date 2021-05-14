@@ -11,19 +11,18 @@
 
 <form method="post" enctype="multipart/form-data">
 
-    Title:
-    <br />
-    <input asp-for="Title" /> <br /><span asp-validation-for="Title"></span><br />
+    <div>
+        <label asp-for="Title">Titel</label>
+        <input class="form-control" asp-for="Title">
+        <span asp-validation-for="Title" class="field-validation-error"></span>
+    </div>
 
+    <div>
+        <label asp-for="Content">Content</label>
+        <textarea class="form-control" asp-for="Content"></textarea>
+        <span asp-validation-for="Content" class="field-validation-error"></span>
+    </div>
 
+    <button type="submit" class="btn btn-danger">Spara</button>
 
-    Content:
-    <br />
-    <textarea rows="4" cols="25" asp-for="Content"></textarea>
-
-
-
-    <hr />
-
-    <button type="submit">Spara</button>
 </form>
