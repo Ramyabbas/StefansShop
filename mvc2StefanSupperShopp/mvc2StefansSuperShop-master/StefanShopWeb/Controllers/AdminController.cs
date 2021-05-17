@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace StefanShopWeb.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IWebHostEnvironment _environment;
 
-        public AdminController(ApplicationDbContext dbContext)
+        public AdminController(ApplicationDbContext dbContext, IWebHostEnvironment environment)
         {
             this.dbContext = dbContext;
+            this._environment = environment;
         }
         List<MenuItem> SetupMenu(string activeAction)
         {
@@ -70,6 +74,47 @@ namespace StefanShopWeb.Controllers
             model.Categories = dbContext.Categories.Select(c =>
                 new AdminCategoryListViewModel.Category { Id = c.CategoryId, Name = c.CategoryName }).ToList();
             return View(model);
+        }
+
+        public IActionResult EditCategory(int id)
+        {
+            var viewModel = new AdminEditCategoryViewModel();
+
+            var dbCategory = dbContext.Categories.FirstOrDefault(a => a.CategoryId == id);
+
+            viewModel.CategoryId = dbCategory.CategoryId;
+            viewModel.CategoryName = dbCategory.CategoryName;
+            viewModel.Description = dbCategory.Description;
+
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditCategories(int id, AdminEditCategoryViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbCategory = dbContext.Categories.First(r => r.CategoryId == id);
+                dbCategory.CategoryName = viewModel.CategoryName;
+                dbCategory.Description = viewModel.Description;
+                dbCategory.ImgVersion = dbCategory.ImgVersion + 1;
+                dbContext.SaveChanges();
+                string filename = dbCategory.CategoryId + "-" + dbCategory.ImgVersion + ".jpg";
+                string totalPath = Path.Combine(_environment.WebRootPath,
+                    "img", "Categories", filename);
+                if (viewModel.NewPicture != null)
+                {
+                    using (var fileStream = new FileStream(totalPath, FileMode.Create))
+                    {
+                        viewModel.NewPicture.CopyTo(fileStream);
+                    }
+
+                }
+                return RedirectToAction("Categories");
+            }
+
+            return View(viewModel);
         }
 
     }

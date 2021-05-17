@@ -14,6 +14,7 @@ namespace StefanShopWeb.ViewModels
             public int Id { get; set; }
             public string Name { get; set; }
             public IFormFile NyBild { get; set; }
+            public int ImgVersion { get; set; }
         }
 
         public List<Category> Categories { get; set; }

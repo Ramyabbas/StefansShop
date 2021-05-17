@@ -50,8 +50,8 @@
                     <tr>
                         <th scope="row">@cat.Id</th>
                         <td>@cat.Name</td>
-                        <td><img src="~/img/Categories/@(cat.Id).png" alt="Categories" style="width:150px;height:80px;"></td>
-
+                        <td><img src="~/img/Categories/@(cat.Id)-@(cat.ImgVersion).png" alt="Categories" style="width:150px;height:80px;"></td>
+                        <td><a asp-controller="Admin" asp-action="EditCategory" asp-route-id="@cat.Id">Edit</a></td>
                     </tr>
                     }
                 </tbody>

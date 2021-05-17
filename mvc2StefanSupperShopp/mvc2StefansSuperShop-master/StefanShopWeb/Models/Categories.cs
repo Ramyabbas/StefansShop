@@ -25,5 +25,7 @@ namespace StefanShopWeb.Models
 
         [InverseProperty("Category")]
         public virtual ICollection<Products> Products { get; set; }
+
+        public int ImgVersion { get; set; }
     }
 }
