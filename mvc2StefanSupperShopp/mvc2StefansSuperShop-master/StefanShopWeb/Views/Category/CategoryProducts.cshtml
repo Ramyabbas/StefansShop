@@ -1,0 +1,223 @@
+﻿@model StefanShopWeb.ViewModels.AdminCategoryListViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="section">
+<!-- container -->
+<div class="container">
+<!-- row -->
+<div class="row">
+
+<!-- section title -->
+<div class="col-md-12">
+    <div class="section-title">
+        <h3 class="title">Products</h3>
+        <div class="section-nav">
+            <ul class="section-tab-nav tab-nav">
+                <li class="active">
+                    <a data-toggle="tab" href="#tab1">Laptops</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#tab1">Smartphones</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#tab1">Cameras</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#tab1">Accessories</a>
+                </li>
+                <li>
+                    <a data-toggle="tab" asp-controller="Category" asp-action="Index">Categories</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /section title -->
+<!-- Products tab & slick -->
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="products-tabs">
+            <!-- tab -->
+            <div id="tab1" class="tab-pane active">
+                <div class="products-slick" data-nav="#slick-nav-1">
+
+                    <!-- product -->
+                    @foreach (var products in Model.Products)
+                    {
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="./img/product01.png" alt="">
+                                <div class="product-label">
+                                    <span class="sale">-30%</span>
+                                    <span class="new">NEW</span>
+                                </div>
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">@products.CategoryName</p>
+                                <h3 class="product-name">
+                                    <a href="#">@products.Name</a>
+                                </h3>
+                                <h4 class="product-price">@products.Price.Value.ToString("C")</h4>
+                                <div class="product-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <div class="product-btns">
+                                    <button class="add-to-wishlist">
+                                        <i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
+                                    </button>
+                                    <button class="add-to-compare">
+                                        <i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span>
+                                    </button>
+                                    <button class="quick-view">
+                                        <i class="fa fa-eye"></i><span class="tooltipp">quick view</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="add-to-cart">
+                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
+
+            <a class="page-link"
+               asp-controller="Category"
+               asp-action="CategoryProducts"
+               asp-route-sortField="@Model.SortField"
+               asp-route-sortOrder="@Model.SortOrder"
+               asp-route-page="@(Model.Page - 1)"
+               asp-route-q="@Model.q">
+                Previous
+            </a>
+        </li>
+
+        @if (Model.Page - 2 > 1)
+        {
+            <li class="page-item @(Model.Page == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="1"
+                   asp-route-q="@Model.q">
+                    First
+                </a>
+            </li>
+        }
+
+        @if (Model.Page - 2 >= 1)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="@(Model.Page - 2)"
+                   asp-route-q="@Model.q">
+                    @(Model.Page - 2)
+                </a>
+            </li>
+        }
+        @if (Model.Page - 1 >= 1)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="@(Model.Page - 1)"
+                   asp-route-q="@Model.q">
+                    @(Model.Page - 1)
+                </a>
+            </li>
+        }
+        <li class="page-item active">
+            <a class="page-link">
+
+                @Model.Page
+            </a>
+        </li>
+
+        @if (Model.Page + 1 <= Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="@(Model.Page + 1)"
+                   asp-route-q="@Model.q">
+                    @(Model.Page + 1)
+                </a>
+            </li>
+        }
+
+        @if (Model.Page + 2 <= Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="@(Model.Page + 2)"
+                   asp-route-q="@Model.q">
+                    @(Model.Page + 2)
+                </a>
+            </li>
+        }
+
+        @if (Model.Page + 3 <= Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-controller="Category"
+                   asp-action="CategoryProducts"
+                   asp-route-sortField="@Model.SortField"
+                   asp-route-sortOrder="@Model.SortOrder"
+                   asp-route-page="@(Model.TotalPages)"
+                   asp-route-q="@Model.q">
+                    Last
+                </a>
+            </li>
+        }
+
+
+        <li class="page-item @(Model.Page == Model.TotalPages ? "disabled" : "")">
+            <a class="page-link"
+               asp-controller="Category"
+               asp-action="CategoryProducts"
+               asp-route-sortField="@Model.SortField"
+               asp-route-sortOrder="@Model.SortOrder"
+               asp-route-page="@(Model.Page + 1)"
+               asp-route-q="@Model.q">
+                Next
+            </a>
+        </li>
+    </ul>
+
+</nav>*@
+</div>
+</div>
+</div>
